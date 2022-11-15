@@ -36,8 +36,23 @@ class PgUserServiceTest {
         assertTrue(optional.isPresent());
     }
 
+    @Test
+    void should_save_hobbies() {
+        String id = IdUtils.id();
+        userService.createUser(buildAUser(id));
+
+        Optional<User> optional = userService.findUserById(id);
+
+        assertTrue(optional.isPresent());
+        User user = optional.get();
+        assertEquals(3, user.getHobbies().size());
+    }
+
     private static User buildAUser(String id) {
-        return new User(id, "Bob Jackson", Gender.MALE);
+        return new User(id,
+                "Bob Jackson",
+                Gender.MALE,
+                List.of("Basketball", "Swimming", "Running"));
     }
 
     @Test

@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface PgUserRepository {
 
-    @Insert("insert into t_user(id, name, gender) values (#{id}, #{name}, #{gender})")
+    @Insert("insert into t_user(id, name, gender, hobby) values (#{id}, #{name}, #{gender}, #{hobbies})")
     void insert(PgUser pgUser);
 
     @Select("select * from t_user where id = #{id}")
