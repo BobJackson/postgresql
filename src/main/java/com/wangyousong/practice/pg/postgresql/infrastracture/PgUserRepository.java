@@ -1,9 +1,7 @@
 package com.wangyousong.practice.pg.postgresql.infrastracture;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.ArrayTypeHandler;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,6 +22,7 @@ public interface PgUserRepository {
             """)
     void insert(PgUser pgUser);
 
+    @Result(column = "hobby", property = "hobbies", typeHandler = ArrayTypeHandler.class)
     @Select("select * from t_user where id = #{id}")
     PgUser findById(String id);
 
