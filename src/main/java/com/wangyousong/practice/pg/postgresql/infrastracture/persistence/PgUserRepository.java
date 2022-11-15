@@ -26,6 +26,7 @@ public interface PgUserRepository {
     @Select("select * from t_user where id = #{id}")
     PgUser findById(String id);
 
+    @Result(column = "hobby", property = "hobbies", typeHandler = ArrayTypeHandler.class)
     @Select("select * from t_user")
     List<PgUser> findAll();
 
