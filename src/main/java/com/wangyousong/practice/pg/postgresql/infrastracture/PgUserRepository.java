@@ -12,7 +12,16 @@ import java.util.List;
 @Mapper
 public interface PgUserRepository {
 
-    @Insert("insert into t_user(id, name, gender, hobby) values (#{id}, #{name}, #{gender}, #{hobbies})")
+    @Insert("""
+            <script>
+                insert into t_user(id, name, gender, hobby) values (
+                    #{id},
+                    #{name},
+                    #{gender},
+                    #{hobbies, typeHandler=org.apache.ibatis.type.ArrayTypeHandler}
+                    )
+            </script>
+            """)
     void insert(PgUser pgUser);
 
     @Select("select * from t_user where id = #{id}")
