@@ -1,4 +1,4 @@
-package com.wangyousong.practice.pg.postgresql.infrastracture;
+package com.wangyousong.practice.pg.postgresql.infrastracture.persistence;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.ArrayTypeHandler;

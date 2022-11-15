@@ -2,8 +2,8 @@ package com.wangyousong.practice.pg.postgresql.infrastracture.acl;
 
 import com.wangyousong.practice.pg.postgresql.domain.User;
 import com.wangyousong.practice.pg.postgresql.domain.UserService;
-import com.wangyousong.practice.pg.postgresql.infrastracture.PgUser;
-import com.wangyousong.practice.pg.postgresql.infrastracture.PgUserRepository;
+import com.wangyousong.practice.pg.postgresql.infrastracture.persistence.PgUser;
+import com.wangyousong.practice.pg.postgresql.infrastracture.persistence.PgUserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package com.wangyousong.practice.pg.postgresql.infrastracture;
+package com.wangyousong.practice.pg.postgresql.infrastracture.persistence;
 
 import com.wangyousong.practice.pg.postgresql.domain.Gender;
 import com.wangyousong.practice.pg.postgresql.domain.User;
