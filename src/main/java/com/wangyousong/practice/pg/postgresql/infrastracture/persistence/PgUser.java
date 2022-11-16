@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wangyousong.practice.pg.postgresql.domain.Gender;
 import com.wangyousong.practice.pg.postgresql.domain.User;
+import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -31,15 +31,15 @@ public class PgUser {
                 user.getCustomizedFields());
     }
 
-    @SneakyThrows
     public User to() {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> fields = mapper.readValue(Optional.ofNullable(customizedFields).orElse("{}").toString(), new TypeReference<>() {
-        });
+        String content = Optional.ofNullable(customizedFields).orElse("{}").toString();
+        Try<Map<String, Object>> fields = Try.of(() -> mapper.readValue(content, new TypeReference<>() {
+        }));
         return new User(id,
                 name,
                 Gender.valueOf(gender),
                 Arrays.asList(Optional.ofNullable(hobbies).orElseGet(() -> new String[]{})),
-                fields);
+                fields.get());
     }
 }

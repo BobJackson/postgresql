@@ -1,7 +1,7 @@
 package com.wangyousong.practice.pg.postgresql.common.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
+import io.vavr.control.Try;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
@@ -17,11 +17,11 @@ public class JsonTypeHandler extends BaseTypeHandler<Object> {
 
     private static final PGobject jsonObject = new PGobject();
 
-    @SneakyThrows
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Object o, JdbcType jdbcType) {
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, Object o, JdbcType jdbcType) throws SQLException {
         jsonObject.setType("jsonb");
-        jsonObject.setValue(new ObjectMapper().writeValueAsString(o));
+        Try<String> value = Try.of(() -> new ObjectMapper().writeValueAsString(o));
+        jsonObject.setValue(value.get());
         preparedStatement.setObject(i, jsonObject);
     }
 
