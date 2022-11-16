@@ -73,6 +73,8 @@ class PgUserServiceTest {
         List<User> users = userService.listAllUser();
 
         assertEquals(1, users.size());
+        assertTrue(users.get(0).getHobbies().size() > 0);
+        assertTrue(users.get(0).getCustomizedFields().isEmpty());
     }
 
     @Test

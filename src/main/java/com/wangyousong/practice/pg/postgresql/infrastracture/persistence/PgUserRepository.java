@@ -29,6 +29,7 @@ public interface PgUserRepository {
     PgUser findById(String id);
 
     @Result(column = "hobby", property = "hobbies", typeHandler = ArrayTypeHandler.class)
+    @Result(column = "customized_fields", property = "customizedFields", typeHandler = JsonTypeHandler.class)
     @Select("select * from t_user")
     List<PgUser> findAll();
 
