@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +30,7 @@ class PgUserServiceTest {
     @Test
     void should_create_a_user() {
         String id = IdUtils.id();
-        userService.createUser(buildAUser(id));
+        userService.createUser(buildAUser(id, Map.of()));
 
         Optional<User> optional = userService.findUserById(id);
 
@@ -39,7 +40,7 @@ class PgUserServiceTest {
     @Test
     void should_save_hobbies() {
         String id = IdUtils.id();
-        userService.createUser(buildAUser(id));
+        userService.createUser(buildAUser(id, Map.of()));
 
         Optional<User> optional = userService.findUserById(id);
 
@@ -48,11 +49,12 @@ class PgUserServiceTest {
         assertEquals(3, user.getHobbies().size());
     }
 
-    private static User buildAUser(String id) {
+    private static User buildAUser(String id, Map<String, Object> customizedFields) {
         return new User(id,
                 "Bob Jackson",
                 Gender.MALE,
-                List.of("Basketball", "Swimming", "Running"));
+                List.of("Basketball", "Swimming", "Running"),
+                customizedFields);
     }
 
     @Test
@@ -66,11 +68,33 @@ class PgUserServiceTest {
 
     @Test
     void should_return_list_when_has_data() {
-        userService.createUser(buildAUser(IdUtils.id()));
+        userService.createUser(buildAUser(IdUtils.id(), Map.of()));
 
         List<User> users = userService.listAllUser();
 
         assertEquals(1, users.size());
+    }
+
+    @Test
+    void should_save_customized_fields() {
+        String id = IdUtils.id();
+        userService.createUser(buildAUser(id, Map.of("age",
+                30,
+                "height",
+                168,
+                "weight",
+                150.2D,
+                "mobile",
+                "17011112222",
+                "address",
+                List.of("上海市", "普陀区", "志丹路")
+        )));
+
+        Optional<User> optional = userService.findUserById(id);
+
+        assertTrue(optional.isPresent());
+        User user = optional.get();
+        assertEquals(5, user.getCustomizedFields().size());
     }
 
 }

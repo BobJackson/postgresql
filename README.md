@@ -11,6 +11,7 @@
 3. lombok
 
 ## 该项目的核心价值
-1. 探索了postgresql中如何保存和映射数组字段(PgUserRepository.java);
-2. 整合了springboot,postgresql,mybatis,flywaydb等基础设施
-3. 整洁的代码和测试驱动开发
+* 探索了postgresql中如何保存和映射数组字段(PgUserRepository.java);
+* 探索了postgresql中如何保存和映射jsonb字段
+* 整合了springboot,postgresql,mybatis,flywaydb等基础设施
+* 整洁的代码和测试驱动开发
